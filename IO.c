@@ -1,7 +1,8 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <malloc/malloc.h>
 
-#include "./IO.h"
+#include "IO.h"
 
 void readDataset(const char *filename, int *N, int **data_points)
 {
@@ -28,7 +29,7 @@ void writeClusters(const char *filename, int N, int *cluster_points)
 
   for (int i = 0; i < N; i++)
   {
-    fprintf(fptr, "%d %d %d %d %d\n", *(cluster_points + (i + 4)), *(cluster_points + (i * 4) + 1), *(cluster_points + (i * 4) + 2), *(cluster_points + (i * 4) + 3));
+    fprintf(fptr, "%d %d %d %d\n", *(cluster_points + (i + 4)), *(cluster_points + (i * 4) + 1), *(cluster_points + (i * 4) + 2), *(cluster_points + (i * 4) + 3));
   }
 
   fclose(fptr);
@@ -42,7 +43,7 @@ void writeCentroids(const char *filename, int K, int num_iterations, float *cent
   {
     for (int j = 0; j < K; j++)
     {
-      fprintf(fptr, "%f %f %f, ", *(centroids = (i * K) + (j * 3)), *(centroids = (i * K) + (j * 3) + 1), *(centroids = (i * K) + (j * 3) + 2));
+      fprintf(fptr, "%f %f %f, ", *(centroids + (i * K) + (j * 3)), *(centroids + (i * K) + (j * 3) + 1), *(centroids + (i * K) + (j * 3) + 2));
     }
     fprintf(fptr, "\n");
   }
