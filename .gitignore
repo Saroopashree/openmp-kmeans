@@ -1,2 +1,5 @@
 # Ignore the vscode settings and prefernces folder
-./vscode/
+/.vscode/
+
+# Ignore the a.out file
+/a.out
