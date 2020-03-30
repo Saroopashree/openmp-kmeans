@@ -8,7 +8,7 @@
 
 #define MAX_ITERATIONS 200
 
-#define THRESHOLD 1e-6
+#define THRESHOLD 1e-1
 
 float *centroids_global;
 float *cluster_points_global;

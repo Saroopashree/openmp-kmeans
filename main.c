@@ -49,5 +49,8 @@ int main(int argc, char const *argv[])
 
 	printf("Time Taken: %lf\n", end_time - start_time);
 
+	writeClusters(data_points_output_filename, N, cluster_points);
+	writeCentroids(centroids_output_filename, K, num_iterations, centroids);
+
 	return 0;
 }
