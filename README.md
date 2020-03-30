@@ -11,4 +11,7 @@ The algorithm is implemented in **C language** and uses the library **OpenMP** (
 ### To execute the output file
 
 `./kmeans <dataset_filename> <No. of clusters> <No. of threads> <output_filename for clustered data points> <output_filename for coordinates of the centroids>`
+
+Example:
+
 `./kmeans datasets/dataset_10000_4.txt 3 8 clust_dp.txt centroids.txt`
