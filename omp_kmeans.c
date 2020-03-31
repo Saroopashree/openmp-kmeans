@@ -8,7 +8,7 @@
 
 #define MAX_ITERATIONS 200
 
-#define THRESHOLD 1e-1
+#define THRESHOLD 1e-4
 
 float *centroids_global;
 float *cluster_points_global;
@@ -57,7 +57,7 @@ void threadedClustering(int tID, int N, int K, int num_threads, float *data_poin
 
       for (int j = 0; j < K; j++)
       {
-        current_distance = findEuclideanDistance((float *)(data_points + (i * 3)), (centroids_global + (iteration_count * K) + (j * 3)));
+        current_distance = findEuclideanDistance((data_points + (i * 3)), (centroids_global + (iteration_count * K + j) * 3));
         if (current_distance < min_distance)
         {
           min_distance = current_distance;
@@ -99,7 +99,7 @@ void threadedClustering(int tID, int N, int K, int num_threads, float *data_poin
         double temp_delta = 0.0;
         for (int i = 0; i < K; i++)
         {
-          temp_delta += findEuclideanDistance((centroids_global + (iteration_count * K) + (i * 3)), (centroids_global + ((iteration_count - 1) * K) + (i * 3)));
+          temp_delta += findEuclideanDistance((centroids_global + (iteration_count * K + i) * 3), (centroids_global + ((iteration_count - 1) * K + i) * 3));
         }
         delta_global = temp_delta;
         (*num_iterations)++;
