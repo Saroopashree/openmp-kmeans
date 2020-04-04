@@ -13,6 +13,7 @@
 float *centroids_global;
 float *cluster_points_global;
 float delta_global = THRESHOLD + 1;
+double current_itr_delta_global;
 
 double findEuclideanDistance(float *pointA, float *pointB)
 {
@@ -88,26 +89,30 @@ void threadedClustering(int tID, int N, int K, int num_threads, float *data_poin
       }
     }
 
-    // printf("Before thr barrier %d\n", tID);
+    // Find delta value after each iteration in all the threads
+    double current_delta = 0.0;
+    for (int i = 0; i < K; i++)
+    {
+      current_delta += findEuclideanDistance((centroids_global + (iteration_count * K + i) * 3), (centroids_global + ((iteration_count - 1) * K + i) * 3));
+    }
 
-// Find delta value after each iteration
+    // Store the largest delta value among all delta values in all the threads
 #pragma omp barrier
     {
-      // Only the first thread is allowed to modify the value of num_iterations
-      if (tID == 0)
-      {
-        double temp_delta = 0.0;
-        for (int i = 0; i < K; i++)
-        {
-          temp_delta += findEuclideanDistance((centroids_global + (iteration_count * K + i) * 3), (centroids_global + ((iteration_count - 1) * K + i) * 3));
-        }
-        delta_global = temp_delta;
-        (*num_iterations)++;
-      }
+      if (current_delta > current_itr_delta_global)
+        current_itr_delta_global = current_delta;
     }
 
 #pragma omp barrier
     iteration_count++;
+
+    // Set the global delta value and increment the number of iterations
+#pragma omp master
+    {
+      delta_global = current_itr_delta_global;
+      current_itr_delta_global = 0.0;
+      (*num_iterations)++;
+    }
   }
 
   // Update the cluster_points
