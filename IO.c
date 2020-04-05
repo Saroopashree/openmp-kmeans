@@ -31,7 +31,7 @@ void writeClusters(const char *filename, int N, float *cluster_points)
 
 	for (int i = 0; i < N; i++)
 	{
-		fprintf(fptr, "%f %f %f %f\n", *(cluster_points + (i + 4)), *(cluster_points + (i * 4) + 1), *(cluster_points + (i * 4) + 2), *(cluster_points + (i * 4) + 3));
+		fprintf(fptr, "%f %f %f %f\n", *(cluster_points + (i * 4)), *(cluster_points + (i * 4) + 1), *(cluster_points + (i * 4) + 2), *(cluster_points + (i * 4) + 3));
 	}
 
 	fclose(fptr);
