@@ -28,7 +28,6 @@ int main(int argc, char const *argv[])
 
 	// Correct no. of command line arguments
 
-	// First argument is the name of the executable file
 	const char *dataset_filename = argv[1];
 	const int K = atoi(argv[2]);
 	const int num_threads = atoi(argv[3]);
