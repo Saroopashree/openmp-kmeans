@@ -7,7 +7,13 @@
 
 int main(int argc, char const *argv[])
 {
-	// dataset_filename, number of clusters, number of threads, data points output filename, centroid coordinates output filename
+	/* Correct structure of command line arguments
+	 		- dataset_filename, 
+			- number of clusters,
+			- number of threads,
+			- output filename to write the clustered data points,
+			- output filename to write the centroid coordinates
+	 */
 
 	if (argc < 6)
 	{
@@ -37,17 +43,12 @@ int main(int argc, char const *argv[])
 
 	readDataset(dataset_filename, &N, &data_points);
 
-	/* for (int i = 0; i < N; i++)
-	{
-		printf("%d %d %d\n", *(data_points + (i * 3)), *(data_points + (i * 3) + 1), *(data_points + (i * 3) + 2));
-	} */
-
 	double start_time = omp_get_wtime();
 	printf("start time: %lf\n", start_time);
 	kmeansClusteringOmp(N, K, num_threads, data_points, &cluster_points, &centroids, &num_iterations);
 	double end_time = omp_get_wtime();
 
-	printf("Time Taken: %lf\n", end_time - start_time);
+	printf("Time Taken: %lfs\n", end_time - start_time);
 
 	writeClusters(data_points_output_filename, N, cluster_points);
 	writeCentroids(centroids_output_filename, K, num_iterations, centroids);
