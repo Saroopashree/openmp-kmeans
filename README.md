@@ -6,7 +6,7 @@ The algorithm is implemented in **C language** and uses the library **OpenMP** (
 
 ### To compile the program
 
-`gcc IO.c omp_kmeans.c main.c -fopenmp -o kmeans`
+`gcc-6 IO.c omp_kmeans.c main.c -fopenmp -o kmeans`
 
 ### To execute the output file
 
@@ -14,4 +14,4 @@ The algorithm is implemented in **C language** and uses the library **OpenMP** (
 
 Example:
 
-`./kmeans datasets/dataset_10000_4.txt 3 8 clust_dp.txt centroids.txt`
+`./kmeans datasets/dataset_50000_4.txt 4 8 clust_dp.txt centroids.txt`

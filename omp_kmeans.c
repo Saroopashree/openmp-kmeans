@@ -67,6 +67,7 @@ void threadedClustering(int tID, int N, int K, int num_threads, float *data_poin
       }
 
       cluster_count[current_cluster_id[i - start]]++;
+
       current_centroid[current_cluster_id[i - start] * 3] += data_points[(i * 3)];
       current_centroid[current_cluster_id[i - start] * 3 + 1] += data_points[(i * 3) + 1];
       current_centroid[current_cluster_id[i - start] * 3 + 2] += data_points[(i * 3) + 2];
@@ -129,6 +130,7 @@ void threadedClustering(int tID, int N, int K, int num_threads, float *data_poin
 
 void kmeansClusteringOmp(int N, int K, int num_threads, float *data_points, float **cluster_points, float **centroids, int *num_iterations)
 {
+  // 7 arguments
   // N              - Number of data points in the dataset (read only)
   // K              - Number of clusters to be created (read only)
   // num_threads    - No. of threads using which the algorithm should be executed (read only)
@@ -167,13 +169,10 @@ void kmeansClusteringOmp(int N, int K, int num_threads, float *data_points, floa
     (*centroids)[i] = centroids_global[i];
   }
 
-#pragma omp barrier
+  printf("Process Completed\n");
+  printf("Number of iterations: %d\n", *num_iterations);
+  for (int i = 0; i < K; i++)
   {
-    printf("Process Completed\n");
-    printf("Number of iterations: %d\n", *num_iterations);
-    for (int i = 0; i < K; i++)
-    {
-      printf("Final Centroids:\t(%f, %f, %f)\n", *(*centroids + ((*num_iterations) * K) + (i * 3)), *(*centroids + ((*num_iterations) * K) + (i * 3) + 1), *(*centroids + ((*num_iterations) * K) + (i * 3) + 2));
-    }
+    printf("Final Centroids:\t(%f, %f, %f)\n", *(*centroids + ((*num_iterations) * K) + (i * 3)), *(*centroids + ((*num_iterations) * K) + (i * 3) + 1), *(*centroids + ((*num_iterations) * K) + (i * 3) + 2));
   }
 }

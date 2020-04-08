@@ -8,11 +8,12 @@
 int main(int argc, char const *argv[])
 {
 	/* Correct structure of command line arguments
-	 		- dataset_filename, 
+			- ./a.out
+	 		- dataset filename, 
 			- number of clusters,
 			- number of threads,
-			- output filename to write the clustered data points,
-			- output filename to write the centroid coordinates
+			- filename to write the clustered data points,
+			- filename to write the coordinated of the centroid
 	 */
 
 	if (argc < 6)
